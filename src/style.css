@@ -12,6 +12,8 @@
   --red: #8c2a22;
   --red-hi: #a3362c;
   --on-red: #ffffff;
+  --wa: #1f7a4a;
+  --wa-hi: #25915a;
   --glow: #fbf8f2;
   --serif: 'Cinzel', 'Trajan Pro', Georgia, serif;
   --sans: 'Manrope', system-ui, sans-serif;
@@ -42,6 +44,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .btn--red { background: var(--red); color: var(--on-red); }
 .btn--red:hover { background: var(--red-hi); }
+.btn--wa { background: var(--wa); color: #fff; }
+.btn--wa:hover { background: var(--wa-hi); }
 .btn--line { border-color: color-mix(in srgb, var(--ivory) 45%, transparent); }
 .btn--line:hover { border-color: var(--ivory); background: color-mix(in srgb, var(--ivory) 6%, transparent); }
 .btn--sm { min-height: 38px; padding: 0 16px; font-size: 13px; }
@@ -146,27 +150,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .insta small { display: block; font-size: 13px; color: color-mix(in srgb, var(--bg) 70%, var(--ivory)); }
 .insta__go { padding: 9px 16px; border-radius: 6px; background: var(--red); color: var(--on-red); font: 700 13px var(--sans); }
 
-/* ---------- 06 skills ---------- */
-.skills { display: grid; gap: 34px; }
-.langs { list-style: none; margin: 0; padding: 0; }
-.langs li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line); }
-.langs li:first-child { border-top: 1px solid var(--line); }
-.langs span { font: 700 13px var(--sans); letter-spacing: 0.14em; text-transform: uppercase; }
-.langs b { font-weight: 600; font-size: 22px; color: var(--teal); }
-.langs .ta { font-family: var(--tamil); font-size: 19px; }
-.langs .te { font-family: 'Noto Sans Telugu', 'Nirmala UI', sans-serif; font-size: 19px; }
-.langs .ml { font-family: 'Noto Sans Malayalam', 'Nirmala UI', sans-serif; font-size: 18px; }
-.langs .hi { font-family: 'Noto Sans Devanagari', 'Nirmala UI', sans-serif; }
-.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.chips li { padding: 10px 16px; border-radius: 99px; border: 1px solid color-mix(in srgb, var(--ivory) 35%, transparent); font-weight: 600; }
-
-/* ---------- 07 photos ---------- */
-.collage { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
-.collage button { position: relative; overflow: hidden; border-radius: 3px; background: var(--card); aspect-ratio: 4 / 5; }
-.collage button:nth-child(5n + 1) { grid-column: span 2; aspect-ratio: 16 / 11; }
-.collage img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform 0.5s ease; }
-.collage button:hover img { transform: scale(1.03); }
-
 /* ---------- 08 looks ---------- */
 .looks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 10px; }
 .look { margin: 0; }
@@ -195,6 +178,51 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .toast { position: fixed; left: 50%; bottom: 24px; z-index: 95; transform: translate(-50%, 16px); padding: 12px 18px; border-radius: 6px; background: var(--ivory); color: var(--bg); font: 600 14px var(--sans); opacity: 0; transition: 0.3s; pointer-events: none; }
 .toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 
+
+/* ---------- quick contact under his name ---------- */
+.reach { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
+.reach__btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 68px; padding: 10px 4px;
+  border-radius: 8px; border: 1px solid var(--line); background: var(--card); text-decoration: none; font: 700 12px var(--sans); color: var(--ivory);
+  transition: border-color 0.2s, background 0.2s;
+}
+.reach__btn svg { width: 24px; height: 24px; color: var(--red); }
+.reach__btn:hover { border-color: var(--red); }
+.reach__btn--main { background: var(--wa); border-color: var(--wa); color: #fff; }
+.reach__btn--main svg { color: #fff; }
+.reach__btn--main:hover { background: var(--wa-hi); border-color: var(--wa-hi); }
+.textlink { display: inline-block; margin-top: 18px; font: 700 14px var(--sans); color: var(--red); text-decoration: none; border-bottom: 1px solid currentColor; }
+
+/* ---------- floating WhatsApp + Instagram ---------- */
+.fab { position: fixed; right: 14px; bottom: calc(env(safe-area-inset-bottom) + 14px); z-index: 50; display: flex; align-items: center; gap: 10px; transition: opacity 0.3s, transform 0.3s; }
+.fab.is-hidden { opacity: 0; transform: translateY(20px); pointer-events: none; }
+.fab__btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 52px; min-width: 52px; border-radius: 99px; text-decoration: none; box-shadow: 0 10px 26px rgba(28, 26, 23, 0.25); }
+.fab__btn svg { width: 24px; height: 24px; }
+.fab__btn--wa { padding: 0 20px 0 16px; background: var(--wa); color: #fff; font: 700 14px var(--sans); }
+.fab__btn--wa:hover { background: var(--wa-hi); }
+.fab__btn--ig { background: var(--card); color: var(--red); border: 1px solid var(--line); }
+.looks__all { margin-top: 22px; width: 100%; }
+.foot { padding-bottom: calc(env(safe-area-inset-bottom) + 90px) !important; }
+
+/* ---------- shorter cards on phones ---------- */
+@media (max-width: 759px) {
+  .project { grid-template-columns: 76px 1fr; gap: 14px; padding: 10px; }
+  .project__poster { width: 76px; }
+  .project h3 { font-size: 18px; margin-top: 6px; }
+  .project__meta { margin-top: 3px; font-size: 13px; }
+  .project__type b { font-size: 11px; }
+  .ads { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .ad { grid-template-columns: 1fr; padding: 12px; gap: 4px; }
+  .ad__n { grid-row: auto; font-size: 11px; }
+  .ad h3 { font-size: 15px; }
+  .ad p { font-size: 12px; }
+  .profile__photo img { aspect-ratio: 1 / 1; object-position: 50% 18%; }
+  .profile__bio { font-size: 16px; }
+  .highlights li { padding: 14px 12px; }
+  .highlights b { font-size: 19px; }
+  .highlights span { font-size: 13px; }
+}
+
 /* ---------- tablet / desktop ---------- */
 @media (min-width: 760px) {
   .profile { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); align-items: center; gap: 56px; }
@@ -207,10 +235,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .tv { grid-template-columns: repeat(3, 1fr); }
   .tv figure:last-child { grid-column: auto; }
   .tv figure:last-child img { aspect-ratio: 4 / 5; }
-  .highlights { grid-template-columns: repeat(4, 1fr); }
-  .skills { grid-template-columns: 1fr 1fr; gap: 56px; }
-  .collage { grid-template-columns: repeat(4, 1fr); }
-  .collage button:nth-child(5n + 1) { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+  .highlights { grid-template-columns: repeat(3, 1fr); }
+  .reach { max-width: 520px; }
+  .looks__all { width: auto; }
+  .fab { right: 24px; bottom: 24px; }
   .looks { grid-template-columns: repeat(6, 1fr); }
   .contact { grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
   .sec { padding-top: 84px; padding-bottom: 84px; }

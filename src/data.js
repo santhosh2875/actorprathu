@@ -65,19 +65,12 @@ export const HIGHLIGHTS = [
   { big: 'Gautham Menon', small: 'Directed his Malabar Gold & Diamonds ad film' },
   { big: '147K', small: 'Followers on Instagram' },
   { big: 'aha', small: 'Web series: Madurai Payyanum Chennai Ponnum' },
+  { big: '5 languages', small: 'Tamil, English, Telugu, Malayalam, Hindi' },
+  { big: '4 dance styles', small: 'Contemporary, Western, Indian Folk, Freestyle' },
 ];
 
-export const LANGUAGES = [
-  { lang: 'Tamil', word: 'வணக்கம்', cls: 'ta' },
-  { lang: 'English', word: 'Hello', cls: 'en' },
-  { lang: 'Telugu', word: 'నమస్కారం', cls: 'te' },
-  { lang: 'Malayalam', word: 'നമസ്കാരം', cls: 'ml' },
-  { lang: 'Hindi', word: 'नमस्ते', cls: 'hi' },
-];
-export const DANCE = ['Contemporary', 'Western', 'Indian Folk', 'Freestyle'];
-
-// The photo collage, in order. wide = spans 2 columns on desktop.
-export const PHOTOS = ['p34', 'p29', 'p36', 'p26', 'p42', 'p38', 'p27', 'p40', 'p32', 'p37', 'p41', 'p30', 'p33', 'p28'];
+// "View all photos" opens these in the viewer, in this order.
+export const PHOTOS = ['p31', 'p34', 'p29', 'p36', 'p26', 'p42', 'p38', 'p27', 'p40', 'p32', 'p37', 'p41', 'p30', 'p33', 'p28', 'p39', 'p35', 'p43'];
 
 // Looks, like the last page of a casting deck.
 export const LOOKS = [

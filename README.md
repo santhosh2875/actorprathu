@@ -12,17 +12,15 @@ python -I serve.py
 Open http://localhost:5177.
 
 ## Sections
-01 Profile: photo, name, details list (age, height, weight, hair, location, languages, dance), WhatsApp and Download portfolio.
-02 Projects: each film or series with poster, type, platform, year, Released/Upcoming, and his role once we have it.
-03 Ad films: 6 brands; Malabar Gold & Diamonds (directed by Gautham Menon) comes first.
-04 Television & stage: TV set, TV stage and live stage photos.
-05 Recognition: Netflix, Gautham Menon, 147K Instagram, aha, plus an Instagram follow card.
-06 Skills: 5 languages (with "hello" in each script), 4 dance styles.
-07 Photos: a collage; tap for full size (swipe or arrow keys).
-08 Looks: suede jacket, street, printed shirt, formal, casual, tartan.
-09 Contact: phone, WhatsApp, email, Instagram, location, Download PDF, Copy all details.
+01 Profile: photo, name, then WhatsApp / Call / Instagram / Email buttons straight away, a short bio, the details list (age, height, weight, hair, location, languages, dance) and the portfolio PDF.
+02 Highlights: six quick facts (Netflix, Gautham Menon, 147K Instagram, aha, 5 languages, 4 dance styles) and an Instagram follow card.
+03 Projects: each film or series with poster, type, platform, year, Released/Upcoming, and his role once we have it.
+04 Ad films: 6 brands; Malabar Gold & Diamonds (directed by Gautham Menon) comes first.
+05 Television & stage: TV set, TV stage and live stage photos.
+06 Looks: six labelled looks, and a "View all 18 photos" button that opens the photo viewer.
+07 Contact: phone, WhatsApp, email, Instagram, location, Download PDF, Copy all details.
 
-The bar at the top lists every section and highlights the one you are reading.
+The bar at the top lists every section and highlights the one you are reading. WhatsApp and Instagram buttons float at the bottom right on every section (hidden while the Contact section is on screen).
 
 ## Style
 Ivory & oxblood (chosen from 5 palettes): paper `#f4efe6`, cards `#fffdf9`, ink `#1c1a17`, muted `#6c655c`, brown `#8a5a3c` for bullets and numbers, one oxblood accent `#8c2a22` (the tab on every section, as on his reference deck). The photo viewer stays dark. Fonts: Cinzel for headings, Manrope for text, Noto Sans for the Indian scripts.
