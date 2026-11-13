@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Prathosh (Prathu) · Actor & Anchor · Portfolio</title>
+  <meta name="description" content="Portfolio of Prathosh (Prathu), actor and anchor from Chennai: profile, films and series, ad films, television, languages, photos and looks. Casting contact." />
+  <meta name="theme-color" content="#f4efe6" />
+  <meta property="og:title" content="Prathosh (Prathu) · Actor & Anchor" />
+  <meta property="og:description" content="Profile · Projects · Ad films · TV · Photos · Looks. Chennai. Casting contact inside." />
+  <meta property="og:image" content="https://santhosh2875.github.io/actorprathu/og.jpg" />
+  <meta property="og:url" content="https://santhosh2875.github.io/actorprathu/" />
+  <meta property="og:type" content="profile" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f4efe6'/%3E%3Crect x='44' y='0' width='14' height='16' fill='%238c2a22'/%3E%3Ctext x='30' y='45' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%231c1a17'%3EP%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@600&family=Noto+Sans+Malayalam:wght@600&family=Noto+Sans+Devanagari:wght@600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link rel="preload" as="image" href="img/p31.webp" />
+  <link rel="stylesheet" href="src/style.css" />
+</head>
+<body>
+  <a class="skip" href="#profile">Skip to profile</a>
+
+  <header class="bar" id="bar">
+    <div class="bar__row">
+      <a class="bar__name" href="#profile">Prathosh <span>Actor · Anchor</span></a>
+      <a class="btn btn--red btn--sm" href="#contact">Contact</a>
+    </div>
+    <nav class="index" id="index" aria-label="Sections"></nav>
+  </header>
+
+  <main>
+    <!-- 01 · Profile (like slide 1 of his deck) -->
+    <section class="sec sec--profile" id="profile" data-title="Profile">
+      <div class="profile">
+        <div class="profile__text">
+          <p class="kicker">Portfolio</p>
+          <h1 class="profile__name">Prathosh</h1>
+          <p class="profile__aka">Known as <b>Prathu</b> · <span class="ta" data-bind="tamil"></span></p>
+          <p class="profile__title" data-bind="title"></p>
+          <p class="profile__bio" data-bind="bio"></p>
+          <dl class="details" id="details"></dl>
+          <div class="btns">
+            <a class="btn btn--red" id="wa-1" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn--line" id="pdf-1" download>Download portfolio</a>
+          </div>
+        </div>
+        <figure class="profile__photo">
+          <span class="tab" aria-hidden="true"></span>
+          <img id="profile-img" alt="Prathosh in a brown suede jacket" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- 02 · Projects -->
+    <section class="sec" id="projects" data-title="Projects">
+      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Projects</h2><p class="sec__sub">Films and web series</p></header>
+      <ol class="projects" id="projects-list"></ol>
+    </section>
+
+    <!-- 03 · Ad films -->
+    <section class="sec" id="ads" data-title="Ad films">
+      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Ad films</h2><p class="sec__sub">Brands he has worked with</p></header>
+      <ol class="ads" id="ads-list"></ol>
+    </section>
+
+    <!-- 04 · Television & stage -->
+    <section class="sec" id="tv" data-title="TV & stage">
+      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Television &amp; stage</h2><p class="sec__sub" id="tv-text"></p></header>
+      <div class="tv" id="tv-photos"></div>
+    </section>
+
+    <!-- 05 · Recognition -->
+    <section class="sec" id="recognition" data-title="Recognition">
+      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Recognition</h2><p class="sec__sub">At a glance</p></header>
+      <ul class="highlights" id="highlights"></ul>
+      <a class="insta" id="insta" target="_blank" rel="noopener">
+        <img src="img/p-shades.webp" alt="" />
+        <span><b>@actorprathu</b><small id="insta-stats"></small></span>
+        <span class="insta__go">Follow</span>
+      </a>
+    </section>
+
+    <!-- 06 · Skills -->
+    <section class="sec" id="skills" data-title="Skills">
+      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Skills</h2><p class="sec__sub">Languages and dance</p></header>
+      <div class="skills">
+        <div>
+          <h3 class="h3">Languages</h3>
+          <ul class="langs" id="langs"></ul>
+        </div>
+        <div>
+          <h3 class="h3">Dance</h3>
+          <ul class="chips" id="dance"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 · Photos -->
+    <section class="sec" id="photos" data-title="Photos">
+      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Photos</h2><p class="sec__sub">Tap any photo to see it full size</p></header>
+      <div class="collage" id="collage"></div>
+    </section>
+
+    <!-- 08 · Looks -->
+    <section class="sec" id="looks" data-title="Looks">
+      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Looks</h2><p class="sec__sub">The range of styles he can carry</p></header>
+      <div class="looks" id="looks-list"></div>
+    </section>
+
+    <!-- 09 · Contact -->
+    <section class="sec sec--contact" id="contact" data-title="Contact">
+      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Contact</h2><p class="sec__sub">For casting and enquiries</p></header>
+      <div class="contact">
+        <dl class="details details--contact" id="contact-details"></dl>
+        <div class="btns btns--stack" id="contact-btns"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Prathosh (Prathu) · Actor &amp; Anchor · Chennai</p>
+    <p>Photos used with permission.</p>
+  </footer>
+
+  <!-- Photo viewer -->
+  <div class="viewer" id="viewer" hidden role="dialog" aria-label="Photo viewer">
+    <button class="viewer__close" id="v-close" aria-label="Close">×</button>
+    <button class="viewer__nav viewer__nav--prev" id="v-prev" aria-label="Previous photo">‹</button>
+    <img id="v-img" alt="" />
+    <button class="viewer__nav viewer__nav--next" id="v-next" aria-label="Next photo">›</button>
+    <p class="viewer__count" id="v-count"></p>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
