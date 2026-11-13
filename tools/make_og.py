@@ -6,7 +6,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
-BG, IVORY, MUTED, TEAL, RED = '#f4efe6', '#1c1a17', '#6c655c', '#8a5a3c', '#8c2a22'
+BG, IVORY, MUTED, TEAL, RED = '#f4efe6', '#1c1a17', '#6c655c', '#8c2a22', '#8c2a22'
 
 
 def font(names, size):

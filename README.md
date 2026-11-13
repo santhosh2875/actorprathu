@@ -23,7 +23,7 @@ Open http://localhost:5177.
 The bar at the top lists every section and highlights the one you are reading. WhatsApp and Instagram buttons float at the bottom right on every section (hidden while the Contact section is on screen).
 
 ## Style
-Ivory & oxblood (chosen from 5 palettes): paper `#f4efe6`, cards `#fffdf9`, ink `#1c1a17`, muted `#6c655c`, brown `#8a5a3c` for bullets and numbers, one oxblood accent `#8c2a22` (the tab on every section, as on his reference deck). The photo viewer stays dark. Fonts: Cinzel for headings, Manrope for text, Noto Sans for the Indian scripts.
+Ivory & oxblood (chosen from 5 palettes), kept to three colours: paper `#f4efe6` (cards `#fffdf9`), ink `#1c1a17` (grey `#6c655c` for small text), and one oxblood accent `#8c2a22` for main buttons (WhatsApp included, with its icon), section tabs, numbers and bullets. The photo viewer stays dark. Fonts: Cinzel for headings, Manrope for text, Noto Sans for the Indian scripts.
 
 ## Edit
 All words are in `src/data.js`. An empty field is not shown on the site, so you can fill `role`, `youtube` and the rest when he sends them (they are marked `TODO`).
