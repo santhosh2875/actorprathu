@@ -1,9 +1,8 @@
-import { ACTOR, PROJECTS, ADS, TV, HIGHLIGHTS, PHOTOS, LOOKS } from './data.js';
+import { ACTOR, PROJECTS, ADS, TV, PHOTO_ROWS, PHOTOS, LOOKS } from './data.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const img = (id) => `img/${id}.webp`;
-const pad = (n) => String(n).padStart(2, '0');
 
 // ---------- simple text ----------
 document.querySelectorAll('[data-bind]').forEach((el) => (el.textContent = ACTOR[el.dataset.bind] ?? ''));
@@ -34,6 +33,9 @@ $('#fab').innerHTML = `
   <a class="fab__btn fab__btn--wa" href="${wa}" target="_blank" rel="noopener" aria-label="WhatsApp Prathu">${ICON.wa}<span>WhatsApp</span></a>`;
 
 const row = ([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`;
+// one quick line under his name, like the info line on a streaming title page
+const get = (k) => (ACTOR.details.find(([key]) => key === k) || [])[1] || '';
+$('#meta').innerHTML = [`${get('Age')} yrs`, get('Height').split(' (')[0], 'Chennai', '5 languages'].filter(Boolean).map((x) => `<span>${esc(x)}</span>`).join('');
 $('#details').innerHTML = ACTOR.details.map(([k, v]) => row([k, esc(v)])).join('');
 
 // ---------- section numbers + the index bar ----------
@@ -43,8 +45,7 @@ let secs = [], links = [];
 // (on phones the gallery comes before the profile).
 function layoutSecs() {
   secs = [...document.querySelectorAll('.sec')].sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
-  secs.forEach((s, i) => { const n = s.querySelector('.sec__num'); if (n) n.textContent = pad(i + 1); });
-  $('#index').innerHTML = secs.map((s, i) => `<a href="#${s.id}"><b>${pad(i + 1)}</b>${esc(s.dataset.title)}</a>`).join('');
+  $('#index').innerHTML = secs.map((s) => `<a href="#${s.id}">${s.dataset.title}</a>`).join('');
   links = [...document.querySelectorAll('#index a')];
   active = -1;
 }
@@ -74,32 +75,28 @@ addEventListener('scroll', onScroll, { passive: true });
 addEventListener('resize', onScroll);
 onScroll();
 
-// ---------- 02 projects ----------
+// ---------- work: poster row ----------
 $('#projects-list').innerHTML = PROJECTS.map((p) => {
   const art = p.poster
-    ? `<img class="project__poster" src="${img(p.poster)}" alt="${esc(p.title)} poster" loading="lazy" />`
-    : `<div class="project__poster project__type"><b>${esc(p.title)}</b></div>`;
+    ? `<img src="${img(p.poster)}" alt="${esc(p.title)} poster" loading="lazy" />`
+    : `<span class="poster__type"><small>${esc(p.kind || 'Coming soon')}</small><b>${esc(p.title)}</b></span>`;
+  const badge = p.status === 'soon' ? '<span class="poster__badge">Coming soon</span>' : p.isNew ? '<span class="poster__badge">New</span>' : '';
   const meta = [p.kind, p.platform, p.year].filter(Boolean).join(' · ');
-  return `<li class="project fade">${art}<div class="project__body">
-    <span class="project__status${p.status === 'soon' ? ' project__status--soon' : ''}">${p.status === 'soon' ? 'Upcoming' : 'Released'}</span>
-    <h3>${esc(p.title)}</h3>
-    ${meta ? `<p class="project__meta">${esc(meta)}</p>` : ''}
-    ${p.role ? `<p class="project__role"><b>Role:</b> ${esc(p.role)}</p>` : ''}
-  </div></li>`;
+  return `<article class="poster fade"><div class="poster__art">${art}${badge}</div>
+    <h3>${esc(p.title)}</h3>${meta ? `<p>${esc(meta)}</p>` : ''}${p.role ? `<p class="poster__role">as ${esc(p.role)}</p>` : ''}</article>`;
 }).join('');
-
 const nOut = PROJECTS.filter((p) => p.status !== 'soon').length;
-$('#projects-sub').textContent = `${PROJECTS.length} films and web series · ${nOut} released, ${PROJECTS.length - nOut} upcoming`;
+$('#projects-sub').textContent = `${nOut} out now · ${PROJECTS.length - nOut} coming soon`;
 
-// ---------- 03 ads ----------
-$('#ads-list').innerHTML = ADS.map((a, i) => `<li class="ad fade${i === 0 ? ' ad--feature' : ''}"><span class="ad__n">${pad(i + 1)}</span><h3>${esc(a.brand)}</h3>${a.note ? `<p>${esc(a.note)}</p>` : '<p>Ad film</p>'}</li>`).join('');
+// ---------- commercials: brand tiles ----------
+$('#ads-list').innerHTML = ADS.map((a, i) => `<article class="adtile fade${i === 0 ? ' adtile--feature' : ''}"><div class="adtile__art"><b>${esc(a.brand)}</b></div><p>${esc(a.note || 'Ad film')}</p></article>`).join('');
 
-// ---------- 04 tv ----------
+// ---------- television & stage ----------
 $('#tv-text').textContent = TV.text;
-$('#tv-photos').innerHTML = TV.photos.map((p) => `<figure class="fade"><img src="${img(p.id)}" alt="${esc(p.caption)}" loading="lazy" /><figcaption>${esc(p.caption)}</figcaption></figure>`).join('');
+$('#tv-tags').innerHTML = TV.tags.map((t) => `<li>${esc(t)}</li>`).join('');
+$('#tv-photos').innerHTML = TV.photos.map((p) => `<figure class="still fade"><img src="${img(p.id)}" alt="${esc(p.caption)}" loading="lazy" /><figcaption>${esc(p.caption)}</figcaption></figure>`).join('');
 
-// ---------- 05 recognition ----------
-$('#highlights').innerHTML = HIGHLIGHTS.map((h) => `<li class="fade"><b>${esc(h.big)}</b><span>${esc(h.small)}</span></li>`).join('');
+// ---------- instagram card (in contact) ----------
 $('#insta').href = ACTOR.instagram;
 $('#insta-stats').textContent = `${ACTOR.followers} followers · ${ACTOR.posts} posts`;
 
@@ -110,13 +107,15 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const DIRS = [1, -1, 1]; // 1 = moves left, -1 = moves right
 const rows = [...document.querySelectorAll('.marquee__row')].map((row, r) => ({ row, track: null, dir: DIRS[r], x: 0, v: 0, setW: 1, drag: null, moved: false, hover: false, last: -1e9, visible: true }));
 function buildRows() {
-  const n = phone.matches ? 3 : 2;
-  const per = Math.ceil(PHOTOS.length / n);
+  // phones: three themed rows; desktop: beach row, then everything else
+  const groups = phone.matches ? PHOTO_ROWS : [PHOTO_ROWS[0], PHOTO_ROWS.slice(1).flat()];
+  let offset = 0;
   rows.forEach((o, r) => {
-    const offset = r * per;
-    const ids = r < n ? PHOTOS.slice(offset, offset + per) : [];
+    const ids = groups[r] || [];
+    const start = offset;
+    offset += ids.length;
     const set = (hidden) => `<div class="marquee__set"${hidden ? ' aria-hidden="true"' : ''}>${ids.map((id, i) =>
-      `<button type="button" data-set="photos" data-i="${offset + i}"${hidden ? ' tabindex="-1"' : ''} aria-label="Open photo ${offset + i + 1}"><img src="img/thumb/${id}.webp" alt="" draggable="false" /></button>`).join('')}</div>`;
+      `<button type="button" data-set="photos" data-i="${start + i}"${hidden ? ' tabindex="-1"' : ''} aria-label="Open photo ${start + i + 1}"><img src="img/thumb/${id}.webp" alt="" draggable="false" /></button>`).join('')}</div>`;
     o.row.innerHTML = ids.length ? `<div class="marquee__track">${set(false)}${set(true)}</div>` : '';
     o.track = o.row.firstElementChild;
     o.x = 0;
@@ -221,7 +220,7 @@ requestAnimationFrame(galleryTick);
 // ---------- 07 photos + 08 looks (one viewer for both) ----------
 let list = [], at = 0;
 $('#all-photos').textContent = `View all ${PHOTOS.length} photos`;
-$('#looks-list').innerHTML = LOOKS.map((l, i) => `<figure class="look fade"><button type="button" data-set="looks" data-i="${i}" aria-label="Open ${esc(l.name)}"><img src="${img(l.id)}" alt="${esc(l.name)}" loading="lazy" /></button><p>${esc(l.name)}</p></figure>`).join('');
+$('#looks-list').innerHTML = LOOKS.map((l, i) => `<figure class="look fade"><button type="button" data-set="looks" data-i="${i}" aria-label="Open ${esc(l.name)}"><img src="img/thumb/${l.id}.webp" alt="${esc(l.name)}" loading="lazy" /></button><figcaption>${esc(l.name)}</figcaption></figure>`).join('');
 
 const viewer = $('#viewer'), vImg = $('#v-img'), vCount = $('#v-count');
 let lastFocus = null;
@@ -277,11 +276,11 @@ const contactRows = [
 if (ACTOR.youtube) contactRows.splice(4, 0, ['YouTube', `<a href="${ACTOR.youtube}" target="_blank" rel="noopener">Channel</a>`]);
 $('#contact-details').innerHTML = contactRows.map(row).join('');
 $('#contact-btns').innerHTML = `
-  <a class="btn btn--wa" href="${wa}" target="_blank" rel="noopener">WhatsApp for casting</a>
-  <a class="btn btn--line" href="tel:${ACTOR.phone}">Call ${ACTOR.phoneLabel}</a>
-  <a class="btn btn--line" href="mailto:${ACTOR.email}?subject=${encodeURIComponent('Casting enquiry for Prathu')}">Email</a>
-  <a class="btn btn--line" href="${ACTOR.pdf}" download>Download portfolio PDF</a>
-  <button class="btn btn--line" type="button" id="copy">Copy all details</button>`;
+  <a class="btn btn--white" href="${wa}" target="_blank" rel="noopener">${ICON.wa}WhatsApp for casting</a>
+  <a class="btn btn--grey" href="tel:${ACTOR.phone}">${ICON.call}Call ${ACTOR.phoneLabel}</a>
+  <a class="btn btn--grey" href="mailto:${ACTOR.email}?subject=${encodeURIComponent('Casting enquiry for Prathu')}">${ICON.mail}Email</a>
+  <a class="btn btn--grey" href="${ACTOR.pdf}" download>Download portfolio PDF</a>
+  <button class="btn btn--grey" type="button" id="copy">Copy all details</button>`;
 
 const details = [
   `${ACTOR.name} (${ACTOR.known}): ${ACTOR.title}`,

@@ -12,21 +12,20 @@ python -I serve.py
 Open http://localhost:5177.
 
 ## Sections
-**On phones (under 760 px wide)** the page starts differently: a full-width photo hero (`img/hero-mobile.webp`, his photo with his name), then the photo rows with no heading (3 rows of 6, moving left, right, left), then the profile details and the rest. The top bar and the floating buttons appear once you scroll past the hero, so the hero stays a clean photo. Desktop keeps the layout below.
+**Phones (under 760 px):** full-width photo hero (`img/hero-mobile.webp`) → three sliding photo rows with no heading (beach looks, casual looks, clean-shave / younger looks; left, right, left; swipe or drag them) → About → Work → Commercials → TV & stage → Looks → Contact. The top bar and floating buttons appear after the hero.
+**Desktop:** About (with photo) → Gallery (two rows) → Work → Commercials → TV & stage → Looks → Contact.
 
-01 Profile: photo, name, then WhatsApp / Call / Instagram / Email buttons straight away, a short bio, the details list (age, height, weight, hair, location, languages, dance) and the portfolio PDF.
-02 Gallery: two rows of his photos sliding sideways in opposite directions (top row left, bottom row right). You can also move them by hand: swipe on a phone, drag with the mouse or scroll sideways on a trackpad; they glide, then auto-play returns about 2 s later. Up/down swipes still scroll the page. They pause on mouse hover and while a photo is open; tap a photo for full size. Photo height adapts to the screen (170 to 320 px), using thumbnails from `img/thumb/`.
-03 Highlights: six quick facts (Netflix, Gautham Menon, 147K Instagram, aha, 5 languages, 4 dance styles) and an Instagram follow card.
-04 Projects: each film or series with poster, type, platform, year, Released/Upcoming, and his role once we have it.
-05 Ad films: 6 brands; Malabar Gold & Diamonds (directed by Gautham Menon) comes first.
-06 Television & stage: TV set, TV stage and live stage photos.
-07 Looks: six labelled looks, and a "View all 18 photos" button that opens the photo viewer.
-08 Contact: phone, WhatsApp, email, Instagram, location, Download PDF, Copy all details.
-
-The bar at the top lists every section and highlights the one you are reading. WhatsApp and Instagram buttons float at the bottom right on every section (hidden while the Contact section is on screen).
+- About: name, a quick info line, WhatsApp / Call / Instagram / Email, bio, details, portfolio PDF.
+- Work: a poster row of films, series and music videos (Hey Bruce is a music video, marked New; upcoming ones say Coming soon).
+- Commercials: brand tiles; Malabar Gold & Diamonds (directed by Gautham Menon) first.
+- TV & stage: anchor on Jaya TV and Vijay TV; concerts, TV shows and reality shows; stills.
+- Looks: six labelled looks and "View all 18 photos".
+- Contact: phone, WhatsApp, email, Instagram card, Download PDF, Copy all details.
 
 ## Style
-Ivory & oxblood (chosen from 5 palettes), kept to three colours: paper `#f4efe6` (cards `#fffdf9`), ink `#1c1a17` (grey `#6c655c` for small text), and one oxblood accent `#8c2a22` for main buttons (WhatsApp included, with its icon), section tabs, numbers and bullets. The photo viewer stays dark. Fonts: Cinzel for headings, Manrope for text, Noto Sans for the Indian scripts.
+A dark streaming-app look: background `#141414`, cards `#1f1f1f`, white text, grey `#b3b3b3`, one red `#e50914` (logo, badges, floating WhatsApp). Main buttons are white with black text, secondary buttons are grey. Fonts: Bebas Neue (big name and poster titles), Manrope (everything else). No logos or branding of any streaming service are used, only the general look.
+
+The photo rows are set in `PHOTO_ROWS` in `src/data.js`: move a photo id between rows to rearrange them.
 
 ## Edit
 All words are in `src/data.js`. An empty field is not shown on the site, so you can fill `role`, `youtube` and the rest when he sends them (they are marked `TODO`).

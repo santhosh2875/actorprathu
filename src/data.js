@@ -29,9 +29,9 @@ export const ACTOR = {
   pdf: 'media/prathosh-portfolio.pdf',
 };
 
-// Films and series. role = his character / part (TODO for each). status: 'out' or 'soon'.
+// Films, series and music videos. role = his character / part (TODO for each). status: 'out' or 'soon'.
 export const PROJECTS = [
-  { title: 'Hey Bruce', kind: 'Film', platform: '', year: '', role: '', status: 'out', poster: '' },
+  { title: 'Hey Bruce', kind: 'Music video', platform: '', year: '', role: '', status: 'out', poster: '', isNew: true }, // TODO: poster
   { title: 'Nee Forever', kind: 'Film', platform: 'Netflix', year: '2025', role: '', status: 'out', poster: 'poster-neeforever' },
   { title: 'Trauma', kind: 'Film', platform: '', year: '2025', role: '', status: 'out', poster: 'poster-trauma' },
   { title: 'Baby & Baby', kind: 'Film', platform: '', year: '2025', role: '', status: 'out', poster: 'poster-babybaby' },
@@ -49,28 +49,26 @@ export const ADS = [
   { brand: 'Annamalai Silks', note: '' },
 ];
 
-// Television and stage. TODO: show names and channels.
+// Television and stage.
 export const TV = {
-  text: 'Anchor and performer on television and live stage. Comfortable with a mic, a crowd and a live camera.',
+  text: 'Anchor on Jaya TV and Vijay TV. He has hosted many concerts, television shows and reality shows.',
+  tags: ['Jaya TV', 'Vijay TV', 'Concerts', 'TV shows', 'Reality shows'],
   photos: [
     { id: 'p39', caption: 'On a TV set' },
-    { id: 'p35', caption: 'TV stage performance' },
-    { id: 'p43', caption: 'Live stage, hosting' },
+    { id: 'p35', caption: 'TV stage' },
+    { id: 'p43', caption: 'Hosting live' },
   ],
 };
 
-// Short highlights, all facts we can show today.
-export const HIGHLIGHTS = [
-  { big: 'Netflix', small: 'Nee Forever streams on Netflix' },
-  { big: 'Gautham Menon', small: 'Directed his Malabar Gold & Diamonds ad film' },
-  { big: '147K', small: 'Followers on Instagram' },
-  { big: 'aha', small: 'Web series: Madurai Payyanum Chennai Ponnum' },
-  { big: '5 languages', small: 'Tamil, English, Telugu, Malayalam, Hindi' },
-  { big: '4 dance styles', small: 'Contemporary, Western, Indian Folk, Freestyle' },
+// The sliding photo rows, grouped by look. Phones show all three rows; desktop shows two (beach, then the rest).
+export const PHOTO_ROWS = [
+  ['p31', 'p34', 'p29', 'p26', 'p27', 'p28', 'p30', 'p37'], // beach, golden hour, suede jacket
+  ['p36', 'p42', 'p41', 'p40', 'p33'], // casual looks
+  ['p39', 'p35', 'p38', 'p32', 'p43'], // clean shave, younger look, stage
 ];
 
-// "View all photos" opens these in the viewer, in this order.
-export const PHOTOS = ['p31', 'p34', 'p29', 'p36', 'p26', 'p42', 'p38', 'p27', 'p40', 'p32', 'p37', 'p41', 'p30', 'p33', 'p28', 'p39', 'p35', 'p43'];
+// "View all photos" opens these in the viewer, in the same order as the rows.
+export const PHOTOS = PHOTO_ROWS.flat();
 
 // Looks, like the last page of a casting deck.
 export const LOOKS = [

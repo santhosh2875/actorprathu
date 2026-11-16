@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Prathosh (Prathu) · Actor & Anchor · Portfolio</title>
   <meta name="description" content="Portfolio of Prathosh (Prathu), actor and anchor from Chennai: profile, films and series, ad films, television, languages, photos and looks. Casting contact." />
-  <meta name="theme-color" content="#f4efe6" />
+  <meta name="theme-color" content="#141414" />
   <meta property="og:title" content="Prathosh (Prathu) · Actor & Anchor" />
-  <meta property="og:description" content="Profile · Projects · Ad films · TV · Photos · Looks. Chennai. Casting contact inside." />
+  <meta property="og:description" content="Actor & anchor from Chennai. Films, series, music videos, ad films, Jaya TV and Vijay TV. Casting contact inside." />
   <meta property="og:image" content="https://santhosh2875.github.io/actorprathu/og.jpg" />
   <meta property="og:url" content="https://santhosh2875.github.io/actorprathu/" />
   <meta property="og:type" content="profile" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f4efe6'/%3E%3Crect x='44' y='0' width='14' height='16' fill='%238c2a22'/%3E%3Ctext x='30' y='45' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%231c1a17'%3EP%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23141414'/%3E%3Ctext x='32' y='48' font-family='Impact,Arial Narrow,sans-serif' font-size='44' text-anchor='middle' fill='%23e50914'%3EP%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@600&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@600&family=Noto+Sans+Malayalam:wght@600&family=Noto+Sans+Devanagari:wght@600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <link rel="preload" as="image" href="img/hero-mobile.webp" media="(max-width: 759px)" />
   <link rel="preload" as="image" href="img/p31.webp" media="(min-width: 760px)" />
@@ -26,8 +26,8 @@
 
   <header class="bar" id="bar">
     <div class="bar__row">
-      <a class="bar__name" href="#profile">Prathosh <span>Actor · Anchor</span></a>
-      <a class="btn btn--wa btn--sm" id="bar-wa" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="bar__name" href="#profile">PRATHOSH</a>
+      <a class="btn btn--red btn--sm" id="bar-wa" target="_blank" rel="noopener">WhatsApp</a>
     </div>
     <nav class="index" id="index" aria-label="Sections"></nav>
   </header>
@@ -38,78 +38,72 @@
       <img src="img/hero-mobile.webp" width="882" height="1460" alt="Prathosh in a brown suede jacket, sitting on the sand, with his name above him" fetchpriority="high" />
     </section>
 
-    <!-- 01 · Profile: who he is + every way to reach him, before anything else -->
-    <section class="sec sec--profile" id="profile" data-title="Profile">
+    <!-- Profile: who he is + every way to reach him -->
+    <section class="sec sec--profile" id="profile" data-title="About">
       <div class="profile">
         <div class="profile__text">
-          <p class="kicker">Portfolio</p>
+          <p class="kicker">Actor · Anchor</p>
           <h1 class="profile__name">Prathosh</h1>
+          <p class="profile__meta" id="meta"></p>
           <p class="profile__aka">Known as <b>Prathu</b> · <span class="ta" data-bind="tamil"></span></p>
-          <p class="profile__title" data-bind="title"></p>
           <div class="reach" id="reach" aria-label="Contact Prathu"></div>
           <p class="profile__bio" data-bind="bio"></p>
           <dl class="details" id="details"></dl>
-          <a class="textlink" id="pdf-1" download>Download portfolio PDF ↓</a>
+          <a class="textlink" id="pdf-1" download>Download portfolio PDF</a>
         </div>
         <figure class="profile__photo">
-          <span class="tab" aria-hidden="true"></span>
           <img id="profile-img" alt="Prathosh in a brown suede jacket" />
         </figure>
       </div>
     </section>
 
-    <!-- 02 · Gallery: two rows of his photos sliding in opposite directions -->
+    <!-- Gallery: sliding photo rows (on phones this sits right under the hero) -->
     <section class="sec sec--bleed" id="gallery" data-title="Gallery">
-      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Gallery</h2><p class="sec__sub">Swipe the rows to explore. Tap a photo to see it full size.</p></header>
+      <header class="sec__head"><h2>Gallery</h2><p class="sec__sub">Swipe the rows to explore. Tap a photo to see it full size.</p></header>
       <div class="marquee" id="marquee">
         <div class="marquee__row" data-dir="left"></div>
         <div class="marquee__row" data-dir="right"></div>
         <div class="marquee__row marquee__row--phone" data-dir="left"></div>
       </div>
-      <p class="marquee__hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Swipe or drag either row</p>
     </section>
 
-    <!-- 03 · Highlights: the fastest way to know him -->
-    <section class="sec" id="highlights-sec" data-title="Highlights">
-      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Highlights</h2><p class="sec__sub">Know him in 10 seconds</p></header>
-      <ul class="highlights" id="highlights"></ul>
-      <a class="insta" id="insta" target="_blank" rel="noopener">
-        <img src="img/p-shades.webp" alt="" />
-        <span><b>@actorprathu</b><small id="insta-stats"></small></span>
-        <span class="insta__go">Follow on Instagram</span>
-      </a>
+    <!-- Work: films, series and music videos -->
+    <section class="sec sec--bleed" id="projects" data-title="Work">
+      <header class="sec__head"><h2>Films, series &amp; music videos</h2><p class="sec__sub" id="projects-sub"></p></header>
+      <div class="slider" id="projects-list"></div>
     </section>
 
-    <!-- 04 · Projects -->
-    <section class="sec" id="projects" data-title="Projects">
-      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Projects</h2><p class="sec__sub" id="projects-sub">Films and web series</p></header>
-      <ol class="projects" id="projects-list"></ol>
+    <!-- Commercials -->
+    <section class="sec sec--bleed" id="ads" data-title="Commercials">
+      <header class="sec__head"><h2>Commercials</h2><p class="sec__sub">Ad films for 6 brands</p></header>
+      <div class="slider" id="ads-list"></div>
     </section>
 
-    <!-- 05 · Ad films -->
-    <section class="sec" id="ads" data-title="Ad films">
-      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Ad films</h2><p class="sec__sub">6 brands he has worked with</p></header>
-      <ol class="ads" id="ads-list"></ol>
+    <!-- Television & stage -->
+    <section class="sec sec--bleed" id="tv" data-title="TV &amp; stage">
+      <header class="sec__head"><h2>Television &amp; stage</h2><p class="sec__sub" id="tv-text"></p><ul class="tags" id="tv-tags"></ul></header>
+      <div class="slider" id="tv-photos"></div>
     </section>
 
-    <!-- 06 · Television & stage -->
-    <section class="sec" id="tv" data-title="TV & stage">
-      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Television &amp; stage</h2><p class="sec__sub" id="tv-text"></p></header>
-      <div class="tv" id="tv-photos"></div>
+    <!-- Looks -->
+    <section class="sec sec--bleed" id="looks" data-title="Looks">
+      <header class="sec__head"><h2>Looks</h2><p class="sec__sub">The range of styles he can carry</p></header>
+      <div class="slider" id="looks-list"></div>
+      <div class="sec__more"><button class="btn btn--grey" type="button" data-set="photos" data-i="0" id="all-photos">View all photos</button></div>
     </section>
 
-    <!-- 07 · Looks + all photos -->
-    <section class="sec" id="looks" data-title="Looks">
-      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Looks</h2><p class="sec__sub">The range of styles he can carry. Tap a photo to see it full size.</p></header>
-      <div class="looks" id="looks-list"></div>
-      <button class="btn btn--line looks__all" type="button" data-set="photos" data-i="0" id="all-photos">View all photos</button>
-    </section>
-
-    <!-- 08 · Contact -->
+    <!-- Contact -->
     <section class="sec sec--contact" id="contact" data-title="Contact">
-      <header class="sec__head"><span class="tab" aria-hidden="true"></span><p class="sec__num"></p><h2>Contact</h2><p class="sec__sub">For casting and enquiries.</p></header>
+      <header class="sec__head"><h2>Contact</h2><p class="sec__sub">For casting and enquiries.</p></header>
       <div class="contact">
-        <dl class="details details--contact" id="contact-details"></dl>
+        <div>
+          <dl class="details details--contact" id="contact-details"></dl>
+          <a class="insta" id="insta" target="_blank" rel="noopener">
+            <img src="img/p-shades.webp" alt="" />
+            <span><b>@actorprathu</b><small id="insta-stats"></small></span>
+            <span class="insta__go">Follow</span>
+          </a>
+        </div>
         <div class="btns btns--stack" id="contact-btns"></div>
       </div>
     </section>
