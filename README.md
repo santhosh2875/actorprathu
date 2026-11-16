@@ -12,6 +12,8 @@ python -I serve.py
 Open http://localhost:5177.
 
 ## Sections
+**On phones (under 760 px wide)** the page starts differently: a full-width photo hero (`img/hero-mobile.webp`, his photo with his name), then the photo rows with no heading (3 rows of 6, moving left, right, left), then the profile details and the rest. The top bar and the floating buttons appear once you scroll past the hero, so the hero stays a clean photo. Desktop keeps the layout below.
+
 01 Profile: photo, name, then WhatsApp / Call / Instagram / Email buttons straight away, a short bio, the details list (age, height, weight, hair, location, languages, dance) and the portfolio PDF.
 02 Gallery: two rows of his photos sliding sideways in opposite directions (top row left, bottom row right). You can also move them by hand: swipe on a phone, drag with the mouse or scroll sideways on a trackpad; they glide, then auto-play returns about 2 s later. Up/down swipes still scroll the page. They pause on mouse hover and while a photo is open; tap a photo for full size. Photo height adapts to the screen (170 to 320 px), using thumbnails from `img/thumb/`.
 03 Highlights: six quick facts (Netflix, Gautham Menon, 147K Instagram, aha, 5 languages, 4 dance styles) and an Instagram follow card.

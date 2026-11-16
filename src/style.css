@@ -152,8 +152,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .sec--bleed { max-width: none; padding-left: 0; padding-right: 0; }
 .sec--bleed .sec__head { max-width: var(--max); margin-left: auto; margin-right: auto; padding-left: var(--pad); padding-right: calc(var(--pad) + 50px); }
 .sec--bleed .sec__head .tab { right: var(--pad); }
-.marquee { display: grid; gap: clamp(8px, 1.2vw, 12px); }
-.marquee__row { overflow: hidden; overflow: clip; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.marquee { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(8px, 1.2vw, 12px); overflow: hidden; }
+.marquee__row { min-width: 0; overflow: hidden; overflow: clip; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
 .marquee__row.is-dragging { cursor: grabbing; }
 .marquee__track { display: flex; width: max-content; will-change: transform; }
 .marquee__set { display: flex; gap: clamp(8px, 1.2vw, 12px); padding-right: clamp(8px, 1.2vw, 12px); }
@@ -234,6 +234,28 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .highlights li { padding: 14px 12px; }
   .highlights b { font-size: 19px; }
   .highlights span { font-size: 13px; }
+}
+
+/* ---------- phones: photo hero, then the photo rows, then everything else ---------- */
+.mhero { display: none; }
+.marquee__row--phone { display: none; }
+@media (max-width: 759px) {
+  main { display: flex; flex-direction: column; }
+  .mhero { display: block; order: -2; background: #a58969; }
+  .mhero img { width: 100%; height: auto; display: block; }
+  #gallery { order: -1; padding: 10px 0 34px; border-bottom: 0; }
+  #gallery .sec__head, #gallery .marquee__hint { display: none; }
+  .marquee__row--phone { display: block; }
+  .marquee { gap: 8px; }
+  .marquee__set { gap: 8px; padding-right: 8px; }
+  .marquee__set button { height: 42vw; border-radius: 3px; }
+  .profile__photo { display: none; }
+  .sec--profile { padding-top: 46px; border-top: 1px solid var(--line); }
+
+  /* the top bar slides in once you scroll past the hero */
+  .bar { position: fixed; left: 0; right: 0; transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .bar.is-hidden { transform: translateY(-105%); }
+  .fab.over-hero { opacity: 0; transform: translateY(20px); pointer-events: none; }
 }
 
 /* ---------- tablet / desktop ---------- */

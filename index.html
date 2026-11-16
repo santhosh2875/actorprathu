@@ -17,7 +17,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@600&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@600&family=Noto+Sans+Malayalam:wght@600&family=Noto+Sans+Devanagari:wght@600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-  <link rel="preload" as="image" href="img/p31.webp" />
+  <link rel="preload" as="image" href="img/hero-mobile.webp" media="(max-width: 759px)" />
+  <link rel="preload" as="image" href="img/p31.webp" media="(min-width: 760px)" />
   <link rel="stylesheet" href="src/style.css" />
 </head>
 <body>
@@ -32,6 +33,11 @@
   </header>
 
   <main>
+    <!-- Phone hero: his photo with his name, nothing on top (hidden on desktop for now) -->
+    <section class="mhero" id="mhero" aria-label="Prathosh">
+      <img src="img/hero-mobile.webp" width="882" height="1600" alt="Prathosh in a brown suede jacket, sitting on the sand, with his name above him" fetchpriority="high" />
+    </section>
+
     <!-- 01 · Profile: who he is + every way to reach him, before anything else -->
     <section class="sec sec--profile" id="profile" data-title="Profile">
       <div class="profile">
@@ -58,6 +64,7 @@
       <div class="marquee" id="marquee">
         <div class="marquee__row" data-dir="left"></div>
         <div class="marquee__row" data-dir="right"></div>
+        <div class="marquee__row marquee__row--phone" data-dir="left"></div>
       </div>
       <p class="marquee__hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Swipe or drag either row</p>
     </section>

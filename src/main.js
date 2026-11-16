@@ -37,11 +37,19 @@ const row = ([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`;
 $('#details').innerHTML = ACTOR.details.map(([k, v]) => row([k, esc(v)])).join('');
 
 // ---------- section numbers + the index bar ----------
-const secs = [...document.querySelectorAll('.sec')];
-secs.forEach((s, i) => { const n = s.querySelector('.sec__num'); if (n) n.textContent = pad(i + 1); });
-$('#index').innerHTML = secs.map((s, i) => `<a href="#${s.id}"><b>${pad(i + 1)}</b>${esc(s.dataset.title)}</a>`).join('');
-const links = [...document.querySelectorAll('#index a')];
+const phone = matchMedia('(max-width: 759px)');
+let secs = [], links = [];
+// Number the sections and build the chip menu in the order they appear on screen
+// (on phones the gallery comes before the profile).
+function layoutSecs() {
+  secs = [...document.querySelectorAll('.sec')].sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+  secs.forEach((s, i) => { const n = s.querySelector('.sec__num'); if (n) n.textContent = pad(i + 1); });
+  $('#index').innerHTML = secs.map((s, i) => `<a href="#${s.id}"><b>${pad(i + 1)}</b>${esc(s.dataset.title)}</a>`).join('');
+  links = [...document.querySelectorAll('#index a')];
+  active = -1;
+}
 let active = -1;
+layoutSecs();
 function setActive(i) {
   if (i === active) return;
   active = i;
@@ -57,6 +65,10 @@ function onScroll() {
   secs.forEach((s, k) => { if (s.getBoundingClientRect().top <= y) i = k; });
   if (vh + scrollY >= document.documentElement.scrollHeight - 4) i = secs.length - 1;
   setActive(i);
+  // phones: the hero stays a clean photo, so the top bar and floating buttons wait until you scroll past it
+  const heroLeft = phone.matches && $('#mhero').getBoundingClientRect().bottom > 72;
+  $('#bar').classList.toggle('is-hidden', heroLeft);
+  $('#fab').classList.toggle('over-hero', heroLeft);
 }
 addEventListener('scroll', onScroll, { passive: true });
 addEventListener('resize', onScroll);
@@ -94,23 +106,32 @@ $('#insta-stats').textContent = `${ACTOR.followers} followers · ${ACTOR.posts} 
 // ---------- gallery: two rows sliding in opposite directions ----------
 // Each row holds its photos twice, so the loop is seamless. The rows move by themselves, and can be
 // swiped (phone), dragged or scrolled sideways (computer). Auto-play comes back ~2 s after you let go.
-const half = Math.ceil(PHOTOS.length / 2);
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const rows = [...document.querySelectorAll('.marquee__row')].map((row, r) => {
-  const ids = r === 0 ? PHOTOS.slice(0, half) : PHOTOS.slice(half);
-  const offset = r === 0 ? 0 : half;
-  const set = (hidden) => `<div class="marquee__set"${hidden ? ' aria-hidden="true"' : ''}>${ids.map((id, i) =>
-    `<button type="button" data-set="photos" data-i="${offset + i}"${hidden ? ' tabindex="-1"' : ''} aria-label="Open photo ${offset + i + 1}"><img src="img/thumb/${id}.webp" alt="" draggable="false" /></button>`).join('')}</div>`;
-  row.innerHTML = `<div class="marquee__track">${set(false)}${set(true)}</div>`;
-  return { row, track: row.firstElementChild, dir: r === 0 ? 1 : -1, x: 0, v: 0, setW: 1, drag: null, moved: false, hover: false, last: -1e9, visible: true };
-});
-
-function measure() {
-  rows.forEach((o) => { o.setW = Math.max(1, o.track.firstElementChild.getBoundingClientRect().width); });
+const DIRS = [1, -1, 1]; // 1 = moves left, -1 = moves right
+const rows = [...document.querySelectorAll('.marquee__row')].map((row, r) => ({ row, track: null, dir: DIRS[r], x: 0, v: 0, setW: 1, drag: null, moved: false, hover: false, last: -1e9, visible: true }));
+function buildRows() {
+  const n = phone.matches ? 3 : 2;
+  const per = Math.ceil(PHOTOS.length / n);
+  rows.forEach((o, r) => {
+    const offset = r * per;
+    const ids = r < n ? PHOTOS.slice(offset, offset + per) : [];
+    const set = (hidden) => `<div class="marquee__set"${hidden ? ' aria-hidden="true"' : ''}>${ids.map((id, i) =>
+      `<button type="button" data-set="photos" data-i="${offset + i}"${hidden ? ' tabindex="-1"' : ''} aria-label="Open photo ${offset + i + 1}"><img src="img/thumb/${id}.webp" alt="" draggable="false" /></button>`).join('')}</div>`;
+    o.row.innerHTML = ids.length ? `<div class="marquee__track">${set(false)}${set(true)}</div>` : '';
+    o.track = o.row.firstElementChild;
+    o.x = 0;
+    o.v = 0;
+    o.row.querySelectorAll('img').forEach((im) => im.complete || im.addEventListener('load', measure, { once: true }));
+  });
+  measure();
 }
-measure();
+function measure() {
+  rows.forEach((o) => { o.setW = o.track ? Math.max(1, o.track.firstElementChild.getBoundingClientRect().width) : 1; });
+}
+buildRows();
 addEventListener('resize', measure);
-document.querySelectorAll('.marquee img').forEach((im) => im.complete || im.addEventListener('load', measure, { once: true }));
+// switching between phone and desktop layouts rebuilds the rows and the section menu
+phone.addEventListener('change', () => { buildRows(); layoutSecs(); onScroll(); });
 
 const autoSpeed = () => (reducedMotion ? 0 : document.documentElement.clientWidth < 760 ? 26 : 38); // px per second
 
@@ -191,7 +212,7 @@ function galleryTick(now) {
       o.x += o.v * dt;
     }
     o.x = ((o.x % o.setW) + o.setW) % o.setW;
-    if (o.visible) o.track.style.transform = `translate3d(${-o.x}px, 0, 0)`;
+    if (o.visible && o.track) o.track.style.transform = `translate3d(${-o.x}px, 0, 0)`;
   });
   requestAnimationFrame(galleryTick);
 }
