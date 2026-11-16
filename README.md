@@ -13,12 +13,13 @@ Open http://localhost:5177.
 
 ## Sections
 01 Profile: photo, name, then WhatsApp / Call / Instagram / Email buttons straight away, a short bio, the details list (age, height, weight, hair, location, languages, dance) and the portfolio PDF.
-02 Highlights: six quick facts (Netflix, Gautham Menon, 147K Instagram, aha, 5 languages, 4 dance styles) and an Instagram follow card.
-03 Projects: each film or series with poster, type, platform, year, Released/Upcoming, and his role once we have it.
-04 Ad films: 6 brands; Malabar Gold & Diamonds (directed by Gautham Menon) comes first.
-05 Television & stage: TV set, TV stage and live stage photos.
-06 Looks: six labelled looks, and a "View all 18 photos" button that opens the photo viewer.
-07 Contact: phone, WhatsApp, email, Instagram, location, Download PDF, Copy all details.
+02 Gallery: two rows of his photos sliding sideways in opposite directions (top row left, bottom row right). They pause on hover or while a photo is open; tap a photo for full size. Uses small thumbnails from `img/thumb/`.
+03 Highlights: six quick facts (Netflix, Gautham Menon, 147K Instagram, aha, 5 languages, 4 dance styles) and an Instagram follow card.
+04 Projects: each film or series with poster, type, platform, year, Released/Upcoming, and his role once we have it.
+05 Ad films: 6 brands; Malabar Gold & Diamonds (directed by Gautham Menon) comes first.
+06 Television & stage: TV set, TV stage and live stage photos.
+07 Looks: six labelled looks, and a "View all 18 photos" button that opens the photo viewer.
+08 Contact: phone, WhatsApp, email, Instagram, location, Download PDF, Copy all details.
 
 The bar at the top lists every section and highlights the one you are reading. WhatsApp and Instagram buttons float at the bottom right on every section (hidden while the Contact section is on screen).
 
@@ -27,4 +28,4 @@ Ivory & oxblood (chosen from 5 palettes), kept to three colours: paper `#f4efe6`
 
 ## Edit
 All words are in `src/data.js`. An empty field is not shown on the site, so you can fill `role`, `youtube` and the rest when he sends them (they are marked `TODO`).
-Photos are in `img/` (copied from site 1). The link preview is `og.jpg`; remake it with `python -I tools/make_og.py`.
+Photos are in `img/` (copied from site 1); the gallery uses 600px-tall copies in `img/thumb/` (remake them if you replace a photo). The link preview is `og.jpg`; remake it with `python -I tools/make_og.py`.

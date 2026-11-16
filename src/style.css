@@ -148,6 +148,26 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .insta small { display: block; font-size: 13px; color: var(--muted); }
 .insta__go { padding: 9px 16px; border-radius: 6px; background: var(--red); color: var(--on-red); font: 700 13px var(--sans); }
 
+/* ---------- gallery: two rows, opposite directions ---------- */
+.sec--bleed { max-width: none; padding-left: 0; padding-right: 0; }
+.sec--bleed .sec__head { max-width: var(--max); margin-left: auto; margin-right: auto; padding-left: var(--pad); padding-right: calc(var(--pad) + 50px); }
+.sec--bleed .sec__head .tab { right: var(--pad); }
+.marquee { display: grid; gap: 10px; overflow: hidden; }
+.marquee__track { display: flex; width: max-content; animation: marquee var(--dur, 60s) linear infinite; }
+.marquee__row[data-dir="right"] .marquee__track { animation-direction: reverse; --dur: 70s; }
+.marquee__set { display: flex; gap: 10px; padding-right: 10px; }
+.marquee__set button { flex: none; height: clamp(200px, 30vw, 320px); border-radius: 4px; overflow: hidden; background: var(--card-2); }
+.marquee__set img { height: 100%; width: auto; display: block; transition: transform 0.4s ease; }
+.marquee__set button:hover img { transform: scale(1.04); }
+.marquee:hover .marquee__track, .marquee:focus-within .marquee__track { animation-play-state: paused; }
+body.is-locked .marquee__track { animation-play-state: paused; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+  .marquee__row { overflow-x: auto; }
+  .marquee__set[aria-hidden="true"] { display: none; }
+}
+
 /* ---------- 08 looks ---------- */
 .looks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 10px; }
 .look { margin: 0; }

@@ -90,6 +90,17 @@ $('#highlights').innerHTML = HIGHLIGHTS.map((h) => `<li class="fade"><b>${esc(h.
 $('#insta').href = ACTOR.instagram;
 $('#insta-stats').textContent = `${ACTOR.followers} followers · ${ACTOR.posts} posts`;
 
+// ---------- gallery: two rows sliding in opposite directions ----------
+// Each row holds its photos twice, so the loop is seamless. Small thumbnails keep it light; tapping opens the full photo.
+const half = Math.ceil(PHOTOS.length / 2);
+document.querySelectorAll('.marquee__row').forEach((row, r) => {
+  const ids = r === 0 ? PHOTOS.slice(0, half) : PHOTOS.slice(half);
+  const offset = r === 0 ? 0 : half;
+  const set = (hidden) => `<div class="marquee__set"${hidden ? ' aria-hidden="true"' : ''}>${ids.map((id, i) =>
+    `<button type="button" data-set="photos" data-i="${offset + i}"${hidden ? ' tabindex="-1"' : ''} aria-label="Open photo ${offset + i + 1}"><img src="img/thumb/${id}.webp" alt="" /></button>`).join('')}</div>`;
+  row.innerHTML = `<div class="marquee__track">${set(false)}${set(true)}</div>`;
+});
+
 // ---------- 07 photos + 08 looks (one viewer for both) ----------
 let list = [], at = 0;
 $('#all-photos').textContent = `View all ${PHOTOS.length} photos`;
