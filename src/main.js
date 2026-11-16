@@ -9,14 +9,13 @@ document.querySelectorAll('[data-bind]').forEach((el) => (el.textContent = ACTOR
 $('#profile-img').src = img(ACTOR.photo);
 
 const wa = `https://wa.me/${ACTOR.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi Prathu, this is a casting enquiry: ')}`;
-$('#pdf-1').href = ACTOR.pdf;
-$('#bar-wa').href = wa;
 
 // simple line icons (drawn here, no icon files)
 const ICON = {
   wa: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.6 8.6 0 0 0-7.4 13l-1.2 4.4 4.5-1.2A8.6 8.6 0 1 0 12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.3c.3-.6.6-.6.9-.6h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2 0 .5-.1.6l-.6.7c-.1.2-.2.3 0 .6.5.9 1.4 1.8 2.4 2.3.3.2.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.3.4.5 0 .5-.2 1.2-.7 1.6-.6.5-1.5.7-2.5.4-1.6-.5-3.1-1.5-4.3-2.9-1-1.2-1.6-2.4-1.7-3.4 0-.8.2-1.5.5-2.1Z" fill="currentColor"/></svg>',
   call: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
   ig: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg>',
+  yt: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m10 9.3 5 2.7-5 2.7Z" fill="currentColor"/></svg>',
   mail: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
 };
 
@@ -33,9 +32,7 @@ $('#fab').innerHTML = `
   <a class="fab__btn fab__btn--wa" href="${wa}" target="_blank" rel="noopener" aria-label="WhatsApp Prathu">${ICON.wa}<span>WhatsApp</span></a>`;
 
 const row = ([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`;
-// one quick line under his name, like the info line on a streaming title page
-const get = (k) => (ACTOR.details.find(([key]) => key === k) || [])[1] || '';
-$('#meta').innerHTML = [`${get('Age')} yrs`, get('Height').split(' (')[0], 'Chennai', '5 languages'].filter(Boolean).map((x) => `<span>${esc(x)}</span>`).join('');
+
 $('#details').innerHTML = ACTOR.details.map(([k, v]) => row([k, esc(v)])).join('');
 
 // ---------- section numbers + the index bar ----------
@@ -96,9 +93,6 @@ $('#tv-text').textContent = TV.text;
 $('#tv-tags').innerHTML = TV.tags.map((t) => `<li>${esc(t)}</li>`).join('');
 $('#tv-photos').innerHTML = TV.photos.map((p) => `<figure class="still fade"><img src="${img(p.id)}" alt="${esc(p.caption)}" loading="lazy" /><figcaption>${esc(p.caption)}</figcaption></figure>`).join('');
 
-// ---------- instagram card (in contact) ----------
-$('#insta').href = ACTOR.instagram;
-$('#insta-stats').textContent = `${ACTOR.followers} followers · ${ACTOR.posts} posts`;
 
 // ---------- gallery: two rows sliding in opposite directions ----------
 // Each row holds its photos twice, so the loop is seamless. The rows move by themselves, and can be
@@ -219,7 +213,6 @@ requestAnimationFrame(galleryTick);
 
 // ---------- 07 photos + 08 looks (one viewer for both) ----------
 let list = [], at = 0;
-$('#all-photos').textContent = `View all ${PHOTOS.length} photos`;
 $('#looks-list').innerHTML = LOOKS.map((l, i) => `<figure class="look fade"><button type="button" data-set="looks" data-i="${i}" aria-label="Open ${esc(l.name)}"><img src="img/thumb/${l.id}.webp" alt="${esc(l.name)}" loading="lazy" /></button><figcaption>${esc(l.name)}</figcaption></figure>`).join('');
 
 const viewer = $('#viewer'), vImg = $('#v-img'), vCount = $('#v-count');
@@ -265,22 +258,17 @@ viewer.addEventListener('pointerup', (e) => {
   if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1));
 });
 
-// ---------- 09 contact ----------
-const contactRows = [
-  ['Phone', `<a href="tel:${ACTOR.phone}">${ACTOR.phoneLabel}</a>`],
-  ['WhatsApp', `<a href="${wa}" target="_blank" rel="noopener">${ACTOR.phoneLabel}</a>`],
-  ['Email', `<a href="mailto:${ACTOR.email}">${ACTOR.email}</a>`],
-  ['Instagram', `<a href="${ACTOR.instagram}" target="_blank" rel="noopener">${ACTOR.handle}</a>`],
-  ['Location', 'Chennai · willing to travel'],
+// ---------- contact: one list, every row is tappable ----------
+const ways = [
+  { icon: ICON.wa, label: 'WhatsApp', value: ACTOR.phoneLabel, href: wa, ext: true, main: true },
+  { icon: ICON.call, label: 'Call', value: ACTOR.phoneLabel, href: `tel:${ACTOR.phone}` },
+  { icon: ICON.mail, label: 'Email', value: ACTOR.email, href: `mailto:${ACTOR.email}?subject=${encodeURIComponent('Casting enquiry for Prathu')}` },
+  { icon: ICON.ig, label: 'Instagram', value: `${ACTOR.handle} · ${ACTOR.followers} followers`, href: ACTOR.instagram, ext: true },
 ];
-if (ACTOR.youtube) contactRows.splice(4, 0, ['YouTube', `<a href="${ACTOR.youtube}" target="_blank" rel="noopener">Channel</a>`]);
-$('#contact-details').innerHTML = contactRows.map(row).join('');
-$('#contact-btns').innerHTML = `
-  <a class="btn btn--white" href="${wa}" target="_blank" rel="noopener">${ICON.wa}WhatsApp for casting</a>
-  <a class="btn btn--grey" href="tel:${ACTOR.phone}">${ICON.call}Call ${ACTOR.phoneLabel}</a>
-  <a class="btn btn--grey" href="mailto:${ACTOR.email}?subject=${encodeURIComponent('Casting enquiry for Prathu')}">${ICON.mail}Email</a>
-  <a class="btn btn--grey" href="${ACTOR.pdf}" download>Download portfolio PDF</a>
-  <button class="btn btn--grey" type="button" id="copy">Copy all details</button>`;
+if (ACTOR.youtube) ways.push({ icon: ICON.yt, label: 'YouTube', value: 'Channel', href: ACTOR.youtube, ext: true });
+$('#ways').innerHTML = ways.map((w) => `<li><a class="way${w.main ? ' way--main' : ''}" href="${w.href}"${w.ext ? ' target="_blank" rel="noopener"' : ''}>${w.icon}<span><b>${esc(w.label)}</b><small>${esc(w.value)}</small></span><i aria-hidden="true">›</i></a></li>`).join('')
+  + `<li class="ways__note">Based in Chennai · willing to travel</li>`;
+$('#pdf').href = $('#pdf-open').href = ACTOR.pdf;
 
 const details = [
   `${ACTOR.name} (${ACTOR.known}): ${ACTOR.title}`,

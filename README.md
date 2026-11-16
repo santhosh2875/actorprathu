@@ -15,12 +15,12 @@ Open http://localhost:5177.
 **Phones (under 760 px):** full-width photo hero (`img/hero-mobile.webp`) → three sliding photo rows with no heading (beach looks, casual looks, clean-shave / younger looks; left, right, left; swipe or drag them) → About → Work → Commercials → TV & stage → Looks → Contact. The top bar and floating buttons appear after the hero.
 **Desktop:** About (with photo) → Gallery (two rows) → Work → Commercials → TV & stage → Looks → Contact.
 
-- About: name, a quick info line, WhatsApp / Call / Instagram / Email, bio, details, portfolio PDF.
+- About: name, WhatsApp / Call / Instagram / Email, a short bio, the details list.
 - Work: a poster row of films, series and music videos (Hey Bruce is a music video, marked New; upcoming ones say Coming soon).
 - Commercials: brand tiles; Malabar Gold & Diamonds (directed by Gautham Menon) first.
 - TV & stage: anchor on Jaya TV and Vijay TV; concerts, TV shows and reality shows; stills.
-- Looks: six labelled looks and "View all 18 photos".
-- Contact: phone, WhatsApp, email, Instagram card, Download PDF, Copy all details.
+- Looks: six labelled looks (tap for full size).
+- Contact: one tap-to-contact list (WhatsApp, Call, Email, Instagram), Download portfolio PDF (with an "open it instead" link for in-app browsers), Copy all details.
 
 ## Style
 A dark streaming-app look: background `#141414`, cards `#1f1f1f`, white text, grey `#b3b3b3`, one red `#e50914` (logo, badges, floating WhatsApp). Main buttons are white with black text, secondary buttons are grey. Fonts: Bebas Neue (big name and poster titles), Manrope (everything else). No logos or branding of any streaming service are used, only the general look.

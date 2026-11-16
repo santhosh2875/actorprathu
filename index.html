@@ -27,7 +27,6 @@
   <header class="bar" id="bar">
     <div class="bar__row">
       <a class="bar__name" href="#profile">PRATHOSH</a>
-      <a class="btn btn--red btn--sm" id="bar-wa" target="_blank" rel="noopener">WhatsApp</a>
     </div>
     <nav class="index" id="index" aria-label="Sections"></nav>
   </header>
@@ -44,12 +43,10 @@
         <div class="profile__text">
           <p class="kicker">Actor · Anchor</p>
           <h1 class="profile__name">Prathosh</h1>
-          <p class="profile__meta" id="meta"></p>
           <p class="profile__aka">Known as <b>Prathu</b> · <span class="ta" data-bind="tamil"></span></p>
           <div class="reach" id="reach" aria-label="Contact Prathu"></div>
           <p class="profile__bio" data-bind="bio"></p>
           <dl class="details" id="details"></dl>
-          <a class="textlink" id="pdf-1" download>Download portfolio PDF</a>
         </div>
         <figure class="profile__photo">
           <img id="profile-img" alt="Prathosh in a brown suede jacket" />
@@ -89,22 +86,18 @@
     <section class="sec sec--bleed" id="looks" data-title="Looks">
       <header class="sec__head"><h2>Looks</h2><p class="sec__sub">The range of styles he can carry</p></header>
       <div class="slider" id="looks-list"></div>
-      <div class="sec__more"><button class="btn btn--grey" type="button" data-set="photos" data-i="0" id="all-photos">View all photos</button></div>
     </section>
 
     <!-- Contact -->
     <section class="sec sec--contact" id="contact" data-title="Contact">
       <header class="sec__head"><h2>Contact</h2><p class="sec__sub">For casting and enquiries.</p></header>
       <div class="contact">
-        <div>
-          <dl class="details details--contact" id="contact-details"></dl>
-          <a class="insta" id="insta" target="_blank" rel="noopener">
-            <img src="img/p-shades.webp" alt="" />
-            <span><b>@actorprathu</b><small id="insta-stats"></small></span>
-            <span class="insta__go">Follow</span>
-          </a>
+        <ul class="ways" id="ways"></ul>
+        <div class="contact__more">
+          <a class="btn btn--white" id="pdf" download>Download portfolio PDF</a>
+          <a class="textlink" id="pdf-open" target="_blank" rel="noopener">Download not starting? Open the PDF</a>
+          <button class="btn btn--grey" type="button" id="copy">Copy all details</button>
         </div>
-        <div class="btns btns--stack" id="contact-btns"></div>
       </div>
     </section>
   </main>

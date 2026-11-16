@@ -8,7 +8,7 @@ export const ACTOR = {
   tamil: 'பிரதோஷ்', // TODO: confirm the Tamil spelling
   title: 'Actor · Anchor',
   photo: 'p31', // the profile photo (img/<id>.webp); the same one as his PDF cover
-  bio: 'Chennai-based actor and anchor working across films, web series, ad films and television. Speaks five languages and trained in four dance styles.',
+  bio: 'Chennai-based actor and anchor, working across films, web series, music videos, ad films and television.',
   details: [
     ['Age', '27'],
     ['Height', '5.8 ft (175 cm)'],

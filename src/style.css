@@ -89,8 +89,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .profile__photo { margin: 0; order: -1; }
 .profile__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 22%; border-radius: 4px; background: var(--card); }
 .profile__name { margin: 6px 0 0; font: 400 clamp(64px, 19vw, 150px)/0.9 var(--display); letter-spacing: 0.01em; }
-.profile__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 10px 0 0; font: 600 14px var(--sans); color: var(--muted); }
-.profile__meta span + span::before { content: '•'; margin-right: 10px; color: var(--dim); }
 .profile__aka { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
 .profile__aka b { color: #fff; }
 .profile__bio { margin: 18px 0 0; max-width: 56ch; font-size: 16px; color: #e5e5e5; }
@@ -160,15 +158,22 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (hover: hover) { .look button:hover img { transform: scale(1.04); } }
 .look figcaption { margin-top: 8px; font: 700 13px var(--sans); }
 
-/* ---------- contact ---------- */
+/* ---------- contact: one list, every row is tappable ---------- */
 .sec--contact { padding-bottom: 56px; }
-.contact { display: grid; gap: 22px; }
-.details--contact { margin-top: 0; }
-.insta { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; margin-top: 18px; padding: 14px; border-radius: 4px; background: var(--card); text-decoration: none; }
-.insta img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
-.insta b { display: block; font-size: 15px; }
-.insta small { display: block; font-size: 13px; color: var(--muted); }
-.insta__go { padding: 8px 14px; border-radius: 4px; background: #fff; color: #000; font: 700 13px var(--sans); }
+.contact { display: grid; gap: 18px; }
+.ways { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.way { display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 14px; min-height: 64px; padding: 12px 16px; border-radius: 4px; background: var(--card); text-decoration: none; transition: background 0.2s; }
+.way:hover { background: var(--card-2); }
+.way svg { width: 24px; height: 24px; }
+.way b { display: block; font-size: 15px; }
+.way small { display: block; font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.way i { font-style: normal; font-size: 26px; line-height: 1; color: var(--dim); }
+.way--main { background: #fff; color: #000; }
+.way--main:hover { background: rgba(255, 255, 255, 0.85); }
+.way--main small, .way--main i { color: #444; }
+.ways__note { padding: 6px 2px 0; font-size: 13px; color: var(--muted); }
+.contact__more { display: grid; gap: 10px; align-content: start; }
+.contact__more .textlink { margin: 0 0 6px; font-size: 13px; justify-self: start; }
 
 .foot { max-width: var(--max); margin: 0 auto; padding: 22px var(--pad) calc(env(safe-area-inset-bottom) + 96px); border-top: 1px solid var(--line); color: var(--dim); font-size: 13px; }
 .foot p { margin: 0; }
@@ -210,6 +215,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .marquee__set button { height: 42vw; }
   .profile__photo { display: none; }
   .sec--profile { padding-top: 26px; }
+  .profile__name { font-size: 46px; }
   .bar { position: fixed; left: 0; right: 0; transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .bar.is-hidden { transform: translateY(-105%); }
 }
@@ -221,7 +227,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .profile__photo img { max-height: 80svh; }
   .profile__name { font-size: clamp(90px, 10vw, 150px); }
   .reach { max-width: 520px; }
-  .contact { grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start; }
+  .contact { grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: start; }
   .sec { padding-top: 48px; padding-bottom: 48px; }
   .fab { right: 24px; bottom: 24px; }
 }
