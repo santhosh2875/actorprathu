@@ -174,6 +174,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .ways__note { padding: 6px 2px 0; font-size: 13px; color: var(--muted); }
 .contact__more { display: grid; gap: 10px; align-content: start; }
 .contact__more .textlink { margin: 0 0 6px; font-size: 13px; justify-self: start; }
+.pdf-tip { margin: 0; font-size: 13px; color: var(--muted); }
+.pdf-tip b { color: #fff; }
 
 .foot { max-width: var(--max); margin: 0 auto; padding: 22px var(--pad) calc(env(safe-area-inset-bottom) + 96px); border-top: 1px solid var(--line); color: var(--dim); font-size: 13px; }
 .foot p { margin: 0; }

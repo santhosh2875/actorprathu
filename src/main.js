@@ -270,6 +270,31 @@ $('#ways').innerHTML = ways.map((w) => `<li><a class="way${w.main ? ' way--main'
   + `<li class="ways__note">Based in Chennai · willing to travel</li>`;
 $('#pdf').href = $('#pdf-open').href = ACTOR.pdf;
 
+// iPhone / iPad: Safari often ignores "download" for PDFs, so the button opens the iPhone Share menu
+// with the PDF in it ("Save to Files" is one tap). The PDF is fetched quietly as the Contact section comes near,
+// so the menu opens straight away. If anything fails, the link simply opens the PDF in Safari.
+const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if (isIOS) {
+  const btn = $('#pdf');
+  let pdfFile = null;
+  btn.removeAttribute('download');
+  $('#pdf-tip').hidden = false;
+  const prepare = async () => {
+    if (pdfFile) return;
+    try {
+      const blob = await (await fetch(ACTOR.pdf)).blob();
+      pdfFile = new File([blob], 'Prathosh-portfolio.pdf', { type: 'application/pdf' });
+    } catch { /* the plain link still works */ }
+  };
+  new IntersectionObserver(([e], obs) => { if (e.isIntersecting) { prepare(); obs.disconnect(); } }, { rootMargin: '800px 0px' }).observe($('#contact'));
+  btn.addEventListener('click', (e) => {
+    if (pdfFile && navigator.canShare?.({ files: [pdfFile] })) {
+      e.preventDefault();
+      navigator.share({ files: [pdfFile] }).catch(() => {});
+    }
+  });
+}
+
 const details = [
   `${ACTOR.name} (${ACTOR.known}): ${ACTOR.title}`,
   ...ACTOR.details.map(([k, v]) => `${k}: ${v}`),
