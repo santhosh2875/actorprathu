@@ -152,21 +152,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .sec--bleed { max-width: none; padding-left: 0; padding-right: 0; }
 .sec--bleed .sec__head { max-width: var(--max); margin-left: auto; margin-right: auto; padding-left: var(--pad); padding-right: calc(var(--pad) + 50px); }
 .sec--bleed .sec__head .tab { right: var(--pad); }
-.marquee { display: grid; gap: 10px; overflow: hidden; }
-.marquee__track { display: flex; width: max-content; animation: marquee var(--dur, 60s) linear infinite; }
-.marquee__row[data-dir="right"] .marquee__track { animation-direction: reverse; --dur: 70s; }
-.marquee__set { display: flex; gap: 10px; padding-right: 10px; }
-.marquee__set button { flex: none; height: clamp(200px, 30vw, 320px); border-radius: 4px; overflow: hidden; background: var(--card-2); }
-.marquee__set img { height: 100%; width: auto; display: block; transition: transform 0.4s ease; }
-.marquee__set button:hover img { transform: scale(1.04); }
-.marquee:hover .marquee__track, .marquee:focus-within .marquee__track { animation-play-state: paused; }
-body.is-locked .marquee__track { animation-play-state: paused; }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) {
-  .marquee__track { animation: none; }
-  .marquee__row { overflow-x: auto; }
-  .marquee__set[aria-hidden="true"] { display: none; }
-}
+.marquee { display: grid; gap: clamp(8px, 1.2vw, 12px); }
+.marquee__row { overflow: hidden; overflow: clip; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.marquee__row.is-dragging { cursor: grabbing; }
+.marquee__track { display: flex; width: max-content; will-change: transform; }
+.marquee__set { display: flex; gap: clamp(8px, 1.2vw, 12px); padding-right: clamp(8px, 1.2vw, 12px); }
+.marquee__set button { flex: none; height: clamp(170px, 46vw, 320px); border-radius: 4px; overflow: hidden; background: var(--card-2); -webkit-tap-highlight-color: transparent; }
+.marquee__set img { height: 100%; width: auto; display: block; pointer-events: none; transition: transform 0.4s ease; -webkit-user-drag: none; }
+@media (hover: hover) { .marquee__set button:hover img { transform: scale(1.04); } }
+.marquee__hint { display: flex; align-items: center; gap: 8px; margin: 14px auto 0; max-width: var(--max); padding: 0 var(--pad); font: 600 12px var(--sans); letter-spacing: 0.08em; color: var(--muted); }
+.marquee__hint svg { width: 18px; height: 18px; color: var(--red); }
 
 /* ---------- 08 looks ---------- */
 .looks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 10px; }

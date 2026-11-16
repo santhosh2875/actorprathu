@@ -51,10 +51,11 @@ function setActive(i) {
   if (a) nav.scrollTo({ left: a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2, behavior: 'smooth' });
 }
 function onScroll() {
-  const y = innerHeight * 0.35;
+  const vh = document.documentElement.clientHeight;
+  const y = vh * 0.35;
   let i = 0;
   secs.forEach((s, k) => { if (s.getBoundingClientRect().top <= y) i = k; });
-  if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) i = secs.length - 1;
+  if (vh + scrollY >= document.documentElement.scrollHeight - 4) i = secs.length - 1;
   setActive(i);
 }
 addEventListener('scroll', onScroll, { passive: true });
@@ -91,15 +92,110 @@ $('#insta').href = ACTOR.instagram;
 $('#insta-stats').textContent = `${ACTOR.followers} followers · ${ACTOR.posts} posts`;
 
 // ---------- gallery: two rows sliding in opposite directions ----------
-// Each row holds its photos twice, so the loop is seamless. Small thumbnails keep it light; tapping opens the full photo.
+// Each row holds its photos twice, so the loop is seamless. The rows move by themselves, and can be
+// swiped (phone), dragged or scrolled sideways (computer). Auto-play comes back ~2 s after you let go.
 const half = Math.ceil(PHOTOS.length / 2);
-document.querySelectorAll('.marquee__row').forEach((row, r) => {
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rows = [...document.querySelectorAll('.marquee__row')].map((row, r) => {
   const ids = r === 0 ? PHOTOS.slice(0, half) : PHOTOS.slice(half);
   const offset = r === 0 ? 0 : half;
   const set = (hidden) => `<div class="marquee__set"${hidden ? ' aria-hidden="true"' : ''}>${ids.map((id, i) =>
-    `<button type="button" data-set="photos" data-i="${offset + i}"${hidden ? ' tabindex="-1"' : ''} aria-label="Open photo ${offset + i + 1}"><img src="img/thumb/${id}.webp" alt="" /></button>`).join('')}</div>`;
+    `<button type="button" data-set="photos" data-i="${offset + i}"${hidden ? ' tabindex="-1"' : ''} aria-label="Open photo ${offset + i + 1}"><img src="img/thumb/${id}.webp" alt="" draggable="false" /></button>`).join('')}</div>`;
   row.innerHTML = `<div class="marquee__track">${set(false)}${set(true)}</div>`;
+  return { row, track: row.firstElementChild, dir: r === 0 ? 1 : -1, x: 0, v: 0, setW: 1, drag: null, moved: false, hover: false, last: -1e9, visible: true };
 });
+
+function measure() {
+  rows.forEach((o) => { o.setW = Math.max(1, o.track.firstElementChild.getBoundingClientRect().width); });
+}
+measure();
+addEventListener('resize', measure);
+document.querySelectorAll('.marquee img').forEach((im) => im.complete || im.addEventListener('load', measure, { once: true }));
+
+const autoSpeed = () => (reducedMotion ? 0 : document.documentElement.clientWidth < 760 ? 26 : 38); // px per second
+
+rows.forEach((o) => {
+  const el = o.row;
+  new IntersectionObserver(([e]) => (o.visible = e.isIntersecting)).observe(el);
+  el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') o.hover = true; });
+  el.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') o.hover = false; });
+
+  el.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;
+    o.drag = { id: e.pointerId, x0: e.clientX, y0: e.clientY, start: o.x, lastX: e.clientX, lastT: performance.now(), on: false };
+    o.moved = false;
+    o.v = 0;
+  });
+  el.addEventListener('pointermove', (e) => {
+    const d = o.drag;
+    if (!d || d.id !== e.pointerId) return;
+    const dx = e.clientX - d.x0, dy = e.clientY - d.y0;
+    if (!d.on) {
+      if (Math.abs(dx) < 6) return;
+      if (Math.abs(dy) > Math.abs(dx)) { o.drag = null; return; } // a vertical swipe: leave it to the page
+      d.on = true;
+      o.moved = true;
+      try { el.setPointerCapture(e.pointerId); } catch {}
+      el.classList.add('is-dragging');
+    }
+    const now = performance.now(), dt = Math.max(1, now - d.lastT);
+    o.v = (-(e.clientX - d.lastX) / dt) * 1000; // px/s, for the glide after release
+    d.lastX = e.clientX;
+    d.lastT = now;
+    o.x = d.start - dx;
+    o.last = now;
+  });
+  const end = (e) => {
+    if (!o.drag || o.drag.id !== e.pointerId) return;
+    o.drag = null;
+    o.last = performance.now();
+    el.classList.remove('is-dragging');
+  };
+  el.addEventListener('pointerup', end);
+  el.addEventListener('pointercancel', end);
+  // a drag is not a tap: stop it from opening the photo
+  el.addEventListener('click', (e) => { if (o.moved) { e.stopPropagation(); e.preventDefault(); o.moved = false; } }, true);
+
+  // trackpad / shift + mouse wheel sideways
+  el.addEventListener('wheel', (e) => {
+    const dx = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.shiftKey ? e.deltaY : 0;
+    if (!dx) return;
+    e.preventDefault();
+    o.x += dx;
+    o.v = 0;
+    o.last = performance.now();
+  }, { passive: false });
+
+  // keyboard: bring a focused photo into view
+  el.addEventListener('focusin', (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    el.scrollLeft = 0;
+    o.x = b.offsetLeft - 16;
+    o.v = 0;
+    o.last = performance.now();
+  });
+});
+
+let galleryT = performance.now();
+function galleryTick(now) {
+  const dt = Math.min(0.05, (now - galleryT) / 1000);
+  galleryT = now;
+  const paused = document.body.classList.contains('is-locked');
+  rows.forEach((o) => {
+    if (!o.drag?.on && !paused) {
+      const idle = now - o.last > 2000;
+      const target = idle && !o.hover ? autoSpeed() * o.dir : 0;
+      if (now - o.last < 2000 && Math.abs(o.v) > 1) o.v *= Math.pow(0.04, dt); // glide after a swipe
+      else o.v += (target - o.v) * Math.min(1, dt * 2.5); // ease back into auto-play
+      o.x += o.v * dt;
+    }
+    o.x = ((o.x % o.setW) + o.setW) % o.setW;
+    if (o.visible) o.track.style.transform = `translate3d(${-o.x}px, 0, 0)`;
+  });
+  requestAnimationFrame(galleryTick);
+}
+requestAnimationFrame(galleryTick);
 
 // ---------- 07 photos + 08 looks (one viewer for both) ----------
 let list = [], at = 0;
